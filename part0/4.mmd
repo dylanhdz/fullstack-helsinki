@@ -1,0 +1,32 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    Note right of browser: The note is sent in the POST as { "note": "Hoy es un buen día :)" }
+    Note left of server: The server code is activated to retrieve the sent note from the req.body and update the JSON.
+    server-->>browser: redirect to https://studies.cs.helsinki.fi/exampleapp/notes
+    deactivate server
+
+    Note left of server: A 302 code indicates redirection to exampleapp/notes to reload the page.
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: notes.html
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: main.css
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: main.js
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: data.json [{content: "Hoy es un buen día :)", date: "2024-09-12T18:11:34.815Z"}, ...]
+    deactivate server
