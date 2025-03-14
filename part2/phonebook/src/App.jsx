@@ -48,6 +48,11 @@ const App = () => {
           setConfirmationMessage(null)
         },5000)
       })
+      .catch(error => {
+        const message = error.response.data.error
+        const lastIndexColon = message.lastIndexOf(':')
+        setErrorMessage(`Error: ${message.substring(lastIndexColon+1)}`)
+      })
       //: alert(`${newName} is already added to phonebook.`) 
       : 
     personService
